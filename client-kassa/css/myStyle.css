@@ -1,8 +1,87 @@
+html {
+    height: 100%;
+}
+
 body{
     margin:0;
     font-family: "Courier";
     background-color: #D8D8D8;
+    height: 100%;
 }
+
+#top{
+    display:block;
+    vertical-align: top;
+    padding: 5px;
+    height: 60%;
+    margin-left: 1em;
+    width: 90%;
+    margin: auto;
+    margin-top: 1em;
+}
+
+#shoppingcart{
+    border: ridge 2px darkgray;
+    border-radius: 8px;
+    width:30%;
+    height:100%;
+    display:inline-block;
+    vertical-align: top;
+    padding: 0.5em;
+}
+
+#shoppingcart #shoppingTable {
+    height: 90%;
+    overflow-y: scroll;
+}
+
+#shoppingcart #shoppingTable table {
+    width: 100%;
+}
+
+#shoppingcart #shoppingTotal {
+    margin-top: 0.5em;
+    text-align: right;
+}
+
+#products{
+    border: ridge 2px darkgray;
+    border-radius: 8px;
+    display:inline-block;
+    width: 65%;
+    height: 100%;
+    padding: 0.5em;
+}
+
+#nav{
+    text-align: right;
+    padding-right: 1em;
+    padding-top: 1em;
+    width: 90%;
+    margin: auto;
+}
+
+#nav ul li{
+    display:inline-block;
+    padding: 0.5em;
+    background-color: #931100;
+    border-radius: 8px;
+    border: 1px solid black;
+}
+
+#nav ul li a{
+    color:white;
+    text-decoration: none;
+}
+
+/*
+    Classes
+*/
+
+.page {
+    height: 100%;
+}
+
 .header{
     height:2em;
     border-radius: 0 0 8px 8px;
@@ -14,45 +93,47 @@ body{
     margin-top:0px;
     text-align: center;
 }
-#top{
-    display:block;
-    vertical-align: top;
-    padding: 5px;
-    height:10em;
-    margin-left: 1em;
-    
+
+.product {
+    display: inline-block;
+    height: 8em;
+    width: 8em;
+    border: 1px solid darkgray;
+    border-radius: 3px;
+    text-align: center;
 }
-#shoppingcart{
-    border: ridge 2px black;
-    border-radius: 8px;
-    width:30%;
-    height:100%;
-    display:inline-block;
-    vertical-align: top;
+
+.product:active {
+    background-color: #e3e3e3;
 }
-#products{
-    border: ridge 2px black;
-    border-radius: 8px;
-    display:inline-block;
-    width:60%;
-    padding: 0.5em;
+
+.productImg {
+    width: 70%;
+    height: 70%;
 }
-#nav{
+
+.productName {
+    height: 15%;
+}
+
+.productPrice {
+    height: 15%;
+}
+
+#shoppingcart #shoppingTable table .shoppingNum {
+    width: 20%;
+}
+
+#shoppingcart #shoppingTable table .shoppingDescr {
+    width: 60%;
+}
+
+#shoppingcart #shoppingTable table .shoppingPrice {
+    width: 20%;
     text-align: right;
-    padding-right: 1em;
+    padding-right: 0.2em;
 }
-#nav ul li{
-    display:inline-block;
-    padding: 0.5em;
-    background-color: #931100;
-    border-radius: 8px;
-    border: 1px solid black;
-}
-#nav ul li a{
-    color:white;
-    text-decoration: none;
-}
-img{
-    height:80px;
-    width:80px;
+
+#shoppingcart #shoppingTable table th.shoppingPrice {
+    text-align: center;
 }

@@ -2,8 +2,8 @@
 <html>
 <head>
     <title>Kassa kiosk</title>
-    <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
-    <script src="//code.jquery.com/ui/1.11.2/jquery-ui.min.js"></script>
+    <script src="scripts/jquery-2.1.4.min.js"></script>
+    <script src="script/jquery-ui.min.js"></script>
     <link href="css/myStyle.css" rel="stylesheet">
 </head>
 <body>
@@ -12,30 +12,34 @@
         <div class="header">
             <h1>Kassa kiosk</h1>
         </div>
+
         <div id="top">
             <div id="shoppingcart">
-                <table>
-                    <tr>
-                        <th>#</th>
-                        <th>Description</th>
-                        <th>Price</th>
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <td>Een product</td>
-                    <td>0</td>
-                </tr>
-            </table>
-        </div>
+                <div id="shoppingTable">
+                    <table>
+                        <tr>
+                            <th class="shoppingtNum">#</th>
+                            <th class="shoppingDescr">Description</th>
+                            <th class="shoppingPrice">Price</th>
+                        </tr>
+                        <tr>
+                            <td class="shoppingNum">1</td>
+                            <td class="shoppingDescr">Een product</td>
+                            <td class="shoppingPrice">0</td>
+                        </tr>
+                    </table>
+                </div>
+                <div id="shoppingTotal">** hier komt het totaal **</div>
+            </div>
 
-        <div id="products">
-            <div class="product">
-                <img class="productImg" src="http://www.lutosa.com/files/produits/catalogue/assiettes/large/11-11-rb-copy-large.jpg">
-                <div class="productName">Kleine friet</div>
-                <div class="productPrice">1.10</div>
+            <div id="products">
+                <div class="product">
+                    <img class="productImg" src="http://www.lutosa.com/files/produits/catalogue/assiettes/large/11-11-rb-copy-large.jpg">
+                    <div class="productName">Kleine friet</div>
+                    <div class="productPrice">1.10</div>
+                </div>
             </div>
         </div>
-    </div>
 
     <div id="nav">
         <ul>

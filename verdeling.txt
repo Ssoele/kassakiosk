@@ -1,4 +1,4 @@
 CSS:		Felice
 Kitchen:	Chou
-Kassa:	Benjamin
+Kassa:		Benjamin (gelieve juist te tabben alsjeblieft!)
 Backend:	Aryan
