@@ -31,10 +31,12 @@ io.on('connection', function(socket) {
 
 app.get("/products/get", function(req, res) {
     connection.query("SELECT categories.id, categories.name, categories.visible, categories.sort FROM categories ORDER BY categories.sort", [], function(err, result) {
+        var response = [];
         if(err) {
-            console.log(err);
+            response = {
+                error: "Database error!"
+            };
         } else {
-            var products = [];
             result.forEach(function(row) {
                 var category = {
                     id: row.id,
@@ -42,29 +44,54 @@ app.get("/products/get", function(req, res) {
                     visible: row.visible,
                     sort: row.sort,
                     products: []
-                }
+                };
                 connection.query("SELECT products.id, products.name, products.price, products.visible, products.categories_id_sub FROM products WHERE products.categories_id = ? ORDER BY products.sort", [row.id], function(err, results) {
-
+                    if(err) {
+                        response = {
+                            error: "Database error!"
+                        };
+                    } else {
+                        result.forEach(function(row) {
+                            var product = {
+                                id: row.id,
+                                name: row.name,
+                                price: row.price,
+                                visible: row.visible,
+                                sort: row.sort,
+                                categories_id_sub: row.categories_id_sub
+                            };
+                            category.push(product);
+                        });
+                    }
                 });
-                products.push(category);
-            })
+                response.push(category);
+            });
         }
+        res.json(response);
     });
 });
 
-app.post("/products/set/:productId([0-9]+)", function(req, res) {
+app.post("/products/set/:productId([0-9]+)/visible", function(req, res) {
+    connection.query("UPDATE products SET products.visible = ?", [req.param("productId")], function(err, result) {
+        var response;
+        if(err) {
 
+        } else {
+
+        }
+        res.json(response);
+    });
 });
 
 app.get("/orders/get/:limit([0-9]+)", function(req, res) {
 
 });
 
-app.get("/orders/set/:orderId([0-9]+)", function(req, res) {
+app.post("/orders/set/:orderId([0-9]+)", function(req, res) {
 
 });
 
-app.post("/orders/create", function(req, res) {
+app.put("/orders/create", function(req, res) {
     connection.query("", [], function(err, result) {
         if (err) {
             console.log(err);
