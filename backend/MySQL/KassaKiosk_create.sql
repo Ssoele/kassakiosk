@@ -1,5 +1,5 @@
 -- Created by Vertabelo (http://vertabelo.com)
--- Last modification date: 2015-11-20 09:36:16.939
+-- Last modification date: 2015-11-20 10:04:35.588
 
 
 
@@ -24,7 +24,8 @@ CREATE TABLE kiosks (
 -- Table orders
 CREATE TABLE orders (
     id int  NOT NULL,
-    date timestamp  NOT NULL,
+    date_created timestamp  NOT NULL,
+    date_finished timestamp  NULL,
     kiosks_id int  NOT NULL,
     CONSTRAINT orders_pk PRIMARY KEY (id)
 );
@@ -45,7 +46,7 @@ CREATE TABLE products (
     name varchar(255)  NOT NULL,
     price decimal(6,2)  NOT NULL,
     visible bool  NOT NULL,
-    categories_id_sub int  NOT NULL,
+    categories_id_sub int  NULL,
     CONSTRAINT products_pk PRIMARY KEY (id)
 );
 
@@ -95,4 +96,3 @@ ALTER TABLE products ADD CONSTRAINT products_categories_sub FOREIGN KEY products
 
 
 -- End of file.
-
