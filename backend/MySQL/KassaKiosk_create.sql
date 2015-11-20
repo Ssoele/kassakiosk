@@ -1,5 +1,5 @@
 -- Created by Vertabelo (http://vertabelo.com)
--- Last modification date: 2015-11-20 10:04:35.588
+-- Last modification date: 2015-11-20 17:18:42.562
 
 
 
@@ -7,23 +7,26 @@
 -- tables
 -- Table categories
 CREATE TABLE categories (
-    id int  NOT NULL,
+    id int  NOT NULL  AUTO_INCREMENT,
     name varchar(255)  NOT NULL,
     visible bool  NOT NULL,
+    sort int  NOT NULL,
     CONSTRAINT categories_pk PRIMARY KEY (id)
 );
 
 -- Table kiosks
 CREATE TABLE kiosks (
-    id int  NOT NULL,
-    name varchar(255)  NOT NULL,
+    id int  NOT NULL  AUTO_INCREMENT,
     types_id int  NOT NULL,
+    name varchar(255)  NOT NULL,
+    uid varchar(255)  NOT NULL,
+    secret varchar(255)  NOT NULL,
     CONSTRAINT kiosks_pk PRIMARY KEY (id)
 );
 
 -- Table orders
 CREATE TABLE orders (
-    id int  NOT NULL,
+    id int  NOT NULL  AUTO_INCREMENT,
     date_created timestamp  NOT NULL,
     date_finished timestamp  NULL,
     kiosks_id int  NOT NULL,
@@ -32,7 +35,7 @@ CREATE TABLE orders (
 
 -- Table orders_products
 CREATE TABLE orders_products (
-    id int  NOT NULL,
+    id int  NOT NULL  AUTO_INCREMENT,
     orders_id int  NOT NULL,
     products_id int  NOT NULL,
     price decimal(6,2)  NOT NULL,
@@ -41,20 +44,29 @@ CREATE TABLE orders_products (
 
 -- Table products
 CREATE TABLE products (
-    id int  NOT NULL,
+    id int  NOT NULL  AUTO_INCREMENT,
     categories_id int  NOT NULL,
     name varchar(255)  NOT NULL,
     price decimal(6,2)  NOT NULL,
     visible bool  NOT NULL,
+    sort int  NOT NULL,
     categories_id_sub int  NULL,
     CONSTRAINT products_pk PRIMARY KEY (id)
 );
 
 -- Table types
 CREATE TABLE types (
-    id int  NOT NULL,
+    id int  NOT NULL  AUTO_INCREMENT,
     name varchar(255)  NOT NULL,
     CONSTRAINT types_pk PRIMARY KEY (id)
+);
+
+-- Table types_categories
+CREATE TABLE types_categories (
+    id int  NOT NULL  AUTO_INCREMENT,
+    types_id int  NOT NULL,
+    categories_id int  NOT NULL,
+    CONSTRAINT types_categories_pk PRIMARY KEY (id)
 );
 
 
@@ -92,6 +104,16 @@ ALTER TABLE products ADD CONSTRAINT products_categories FOREIGN KEY products_cat
 
 ALTER TABLE products ADD CONSTRAINT products_categories_sub FOREIGN KEY products_categories_sub (categories_id_sub)
     REFERENCES categories (id);
+-- Reference:  types_categories_categories (table: types_categories)
+
+
+ALTER TABLE types_categories ADD CONSTRAINT types_categories_categories FOREIGN KEY types_categories_categories (categories_id)
+    REFERENCES categories (id);
+-- Reference:  types_categories_types (table: types_categories)
+
+
+ALTER TABLE types_categories ADD CONSTRAINT types_categories_types FOREIGN KEY types_categories_types (types_id)
+    REFERENCES types (id);
 
 
 
