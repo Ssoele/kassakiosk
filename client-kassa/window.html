@@ -2,21 +2,45 @@
 <html>
 <head>
     <title>Kassa kiosk</title>
-    <script src="//code.jquery.com/jquery.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
     <script src="//code.jquery.com/ui/1.11.2/jquery-ui.min.js"></script>
-    <script src="bower_components/jquery-flipper/dist/jquery.flipper.min.js"></script>
-    <script>
-        $('#myFlipper').flipper({
-            rotationType: 'left-slide',
-            depth: 1000,
-            speed: 0.2
-        });
-    </script>
     <style src="/myStyle.css"></style>
 </head>
 <body>
-<div class="page" id="myFlipper">
-    <h1>Welkom</h1>
+<div class="page" id="welkom">
+
+</div>
+
+<div class="page" id="main">
+    <div id="shoppingcart">
+        <table>
+            <tr>
+                <th>#</th>
+                <th>Description</th>
+                <th>Price</th>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>Een product</td>
+                <td>0</td>
+            </tr>
+        </table>
+    </div>
+
+    <div id="products">
+        <div class="product">
+            <img class="productImg" src="#">
+            <div class="productName"></div>
+            <div class="productPrice"></div>
+        </div>
+    </div>
+
+    <div id="nav">
+        <ul>
+            <li>Cancel order</li>
+            <li>Checkout</li>
+        </ul>
+    </div>
 </div>
 
 </body>
