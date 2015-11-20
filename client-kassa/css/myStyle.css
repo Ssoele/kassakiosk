@@ -1,0 +1,58 @@
+body{
+    margin:0;
+    font-family: "Courier";
+    background-color: #D8D8D8;
+}
+.header{
+    height:2em;
+    border-radius: 0 0 8px 8px;
+    background-color: #B71500;
+    padding:1em 0 1em 0;
+}
+.header h1{
+    color:white;
+    margin-top:0px;
+    text-align: center;
+}
+#top{
+    display:block;
+    vertical-align: top;
+    padding: 5px;
+    height:10em;
+    margin-left: 1em;
+    
+}
+#shoppingcart{
+    border: ridge 2px black;
+    border-radius: 8px;
+    width:30%;
+    height:100%;
+    display:inline-block;
+    vertical-align: top;
+}
+#products{
+    border: ridge 2px black;
+    border-radius: 8px;
+    display:inline-block;
+    width:60%;
+    padding: 0.5em;
+}
+#nav{
+    text-align: right;
+    padding-right: 1em;
+}
+#nav ul li{
+    display:inline-block;
+    padding: 0.5em;
+    background-color: #931100;
+    border-radius: 8px;
+    border: 1px solid black;
+}
+#nav ul li a{
+    color:white;
+    text-decoration: none;
+}
+img{
+    height:80px;
+    width:80px;
+}
