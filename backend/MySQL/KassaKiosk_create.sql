@@ -1,5 +1,5 @@
 -- Created by Vertabelo (http://vertabelo.com)
--- Last modification date: 2015-11-20 09:32:44.15
+-- Last modification date: 2015-11-20 09:36:16.939
 
 
 
@@ -17,6 +17,7 @@ CREATE TABLE categories (
 CREATE TABLE kiosks (
     id int  NOT NULL,
     name varchar(255)  NOT NULL,
+    types_id int  NOT NULL,
     CONSTRAINT kiosks_pk PRIMARY KEY (id)
 );
 
@@ -60,6 +61,11 @@ CREATE TABLE types (
 
 
 -- foreign keys
+-- Reference:  kiosks_types (table: kiosks)
+
+
+ALTER TABLE kiosks ADD CONSTRAINT kiosks_types FOREIGN KEY kiosks_types (types_id)
+    REFERENCES types (id);
 -- Reference:  orders_kiosks (table: orders)
 
 
