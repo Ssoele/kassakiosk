@@ -45,7 +45,7 @@ app.get("/products/get", function(req, res) {
                     sort: row.sort,
                     products: []
                 };
-                connection.query("SELECT products.id, products.name, products.price, products.visible, products.categories_id_sub FROM products WHERE products.categories_id = ? ORDER BY products.sort", [row.id], function(err, results) {
+                connection.query("SELECT products.id, products.name, products.price, products.visible, products.sort, products.categories_id_sub FROM products WHERE products.categories_id = ? ORDER BY products.sort", [row.id], function(err, result) {
                     if(err) {
                         response = {
                             error: "Database error!"
@@ -60,11 +60,13 @@ app.get("/products/get", function(req, res) {
                                 sort: row.sort,
                                 categories_id_sub: row.categories_id_sub
                             };
-                            category.push(product);
+                            category.products.push(product);
+                            console.log(product);
                         });
                     }
                 });
                 response.push(category);
+                console.log(category);
             });
         }
         res.json(response);
