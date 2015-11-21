@@ -42,3 +42,4 @@ client-kitchen/.idea/
 
 # mpeltonen/sbt-idea plugin
 .idea_modules/
+backend/.idea/workspace.xml
