@@ -1,5 +1,5 @@
 "use strict"
-var config  = require("./config.json");
+var config  = require("../config.json");
 var mysql   = require("mysql");
 var express = require('express');
 var app     = express();
@@ -33,43 +33,53 @@ app.get("/products/get", function(req, res) {
     connection.query("SELECT categories.id, categories.name, categories.visible, categories.sort FROM categories ORDER BY categories.sort", [], function(err, result) {
         var response = [];
         if(err) {
-            response = {
-                error: "Database error!"
-            };
+            console.log(err);
         } else {
+            var categoriesId = [];
             result.forEach(function(row) {
-                var category = {
+                categoriesId.push(row.id);
+
+                response.push({
                     id: row.id,
                     name: row.name,
                     visible: row.visible,
                     sort: row.sort,
                     products: []
-                };
-                connection.query("SELECT products.id, products.name, products.price, products.visible, products.sort, products.categories_id_sub FROM products WHERE products.categories_id = ? ORDER BY products.sort", [row.id], function(err, result) {
-                    if(err) {
-                        response = {
-                            error: "Database error!"
-                        };
-                    } else {
-                        result.forEach(function(row) {
-                            var product = {
-                                id: row.id,
-                                name: row.name,
-                                price: row.price,
-                                visible: row.visible,
-                                sort: row.sort,
-                                categories_id_sub: row.categories_id_sub
-                            };
-                            category.products.push(product);
-                            console.log(product);
-                        });
-                    }
                 });
-                response.push(category);
-                console.log(category);
             });
+
+            connection.query("SELECT products.id, products.name, products.price, products.visible, products.sort, products.categories_id, products.categories_id_sub FROM products WHERE products.categories_id IN (?) ORDER BY products.sort", [categoriesId], function (err, result) {
+                if(err) {
+                    console.log(err);
+                } else {
+                    result.forEach(function(product) {
+                        response.forEach(function(category) {
+                            if(category.id == product.categories_id) {
+                                category.products.push({
+                                    id: product.id,
+                                    name: product.name,
+                                    price: product.price,
+                                    visible: product.visible,
+                                    sort: product.sort,
+                                    categories_id_sub: product.categories_id_sub
+                                });
+                            }
+                        });
+                    });
+                    res.json(response);
+                }
+            });
+
+
+
+            /*result.forEach(function(row) {
+
+                connection.query("SELECT products.id, products.name, products.price, products.visible, products.sort, products.categories_id_sub FROM products WHERE products.categories_id = ? ORDER BY products.sort", [row.id], function(err, result) {
+
+                });
+                console.log(category);
+            });*/
         }
-        res.json(response);
     });
 });
 
@@ -106,3 +116,7 @@ app.put("/orders/create", function(req, res) {
 app.use(function (req, res) {
     res.status(404).end("404 Page is choud!");
 });
+
+function getProductsByCategory(categoryId) {
+
+}

@@ -8,6 +8,7 @@
 ## Directory-based project format:
 .idea/
 backend/.idea/
+backend/node/node_modules/
 client-kassa/.idea/
 client-kitchen/.idea/
 # if you remove the above rule, at least ignore the following:
