@@ -12,6 +12,10 @@ $(document).ready(function() {
     console.log("ready");
 
     getProducts();
+    addShoppingcartHeaders();
+
+    $("#cancel").click(cancelOrder);
+    $("#checkout").click(checkout);
 })
 
 function getProducts() {
@@ -23,7 +27,6 @@ function getProducts() {
         dataType: "json",
         success: function(data) {
             products = data[0].products;
-            console.log(products);
             buildProducts(data[0].products);
         },
         error: function(xhr, message, error) {
@@ -60,8 +63,6 @@ function buildProducts(data) {
     $("div#products").append(html);
 
     addProductClickHandler();
-
-    console.log(products);
 }
 
 function addProductClickHandler() {
@@ -88,6 +89,17 @@ function getProduct(id) {
     })
 
     return product;
+}
+
+function addShoppingcartHeaders() {
+    var html =
+        '<tr>'+
+        '<th class="shoppingtNum">#</th>'+
+        '<th class="shoppingDescr">Description</th>'+
+        '<th class="shoppingPrice">Price</th>'+
+        '</tr>';
+
+    $("#shoppingTable table").append(html);
 }
 
 function addProductToShoppingCart(product) {
@@ -117,7 +129,29 @@ function updateShoppingcart() {
    scrollToBottom($("#shoppingTable"));
 }
 
+function clearShoppingcart() {
+    shoppingcart = new Array();
+    $("#shoppingTable table").empty();
+    addShoppingcartHeaders();
+    $("#shoppingTotal").empty()
+}
+
 function scrollToBottom(element) {
     var height = element.get(0).scrollHeight;
     element.scrollTop(height);
+}
+
+function cancelOrder(e) {
+    e.preventDefault();
+
+    clearShoppingcart();
+    getProducts();
+}
+
+function checkout(e) {
+    e.preventDefault();
+
+    alert("Thanks for your order!");
+    clearShoppingcart();
+    getProducts();
 }
