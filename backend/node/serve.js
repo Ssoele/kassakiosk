@@ -29,12 +29,11 @@ io.on('connection', function(socket) {
 
 });
 
-/* toevoeging van benjamin om cross domain toe te staan */
-/*app.all('/', function(req, res, next) {
+app.all("*", function(req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "X-Requested-With");
     next();
-});*/
+});
 
 app.get("/products/get", function(req, res) {
     connection.query("SELECT categories.id, categories.name, categories.visible, categories.sort FROM categories ORDER BY categories.sort", [], function(err, result) {
@@ -74,10 +73,6 @@ app.get("/products/get", function(req, res) {
                             }
                         });
                     });
-
-                    /* Deze header om cross origin te kunnen werken - Benjamin*/
-                    res.header("Access-Control-Allow-Origin", "*");
-
                     res.json(response);
                 }
             });
@@ -87,7 +82,7 @@ app.get("/products/get", function(req, res) {
 
 app.post("/products/set/:productId([0-9]+)/visible", function(req, res) {
     console.log(req);
-    res.json(req);
+    res.end(req.toString());
     /*connection.query("UPDATE products SET products.visible = ? WHERE products.id = ?", [req.body.visible, req.params.productId], function(err, result) {
         var response;
         if(err) {
