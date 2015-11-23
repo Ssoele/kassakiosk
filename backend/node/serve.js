@@ -68,7 +68,8 @@ app.get("/products/get", function(req, res) {
                                     price: product.price,
                                     visible: product.visible,
                                     sort: product.sort,
-                                    categories_id_sub: product.categories_id_sub
+                                    categories_id_sub: product.categories_id_sub,
+                                    image: "http://212.47.253.40/images/products/"+product.id+"/image.png"
                                 });
                             }
                         });
@@ -112,7 +113,7 @@ app.post("/orders/set/:orderId([0-9]+)", function(req, res) {
 
 });
 
-app.put("/orders/create", function(req, res) {
+app.post("/orders/create", function(req, res) {
     connection.query("", [], function(err, result) {
         if (err) {
             console.log(err);
@@ -120,6 +121,10 @@ app.put("/orders/create", function(req, res) {
 
         }
     });
+});
+
+app.get("/images/products/:productId([0-9]+)/image.png", function(req, res) {
+    res.status(404).end("Images not available yet!");
 });
 
 app.use(function (req, res) {
