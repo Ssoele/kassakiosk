@@ -1,15 +1,20 @@
 "use strict"
-var config  = require("../config.json");
-var mysql   = require("mysql");
-var express = require("express");
-var app     = express();
-var server  = require("http").createServer(app);
+var config      = require("../config.json");
+var mysql       = require("mysql");
+var express     = require("express");
+var app         = express();
+var server      = require("http").createServer(app);
+var bodyParser  = require('body-parser');
 //var io      = require("socket.io")(server);
 
-server.listen(80);
+
+server.listen(config.port);
 
 app.set("case sensitive routing", true);
-
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({
+    extended: true
+}));
 
 // =====START=====
 //      MySQL
@@ -81,9 +86,13 @@ app.get("/products/get", function(req, res) {
 });
 
 app.post("/products/set/:productId([0-9]+)/visible", function(req, res) {
-    console.log(req);
-    res.end(req.toString());
-    /*connection.query("UPDATE products SET products.visible = ? WHERE products.id = ?", [req.body.visible, req.params.productId], function(err, result) {
+    var visible;
+    if(req.body.visible) {
+        visible = 1;
+    } else {
+        visible = 0;
+    }
+    connection.query("UPDATE products SET products.visible = ? WHERE products.id = ?", [visible, req.params.productId], function(err, result) {
         var response;
         if(err) {
             console.log(err);
@@ -97,11 +106,82 @@ app.post("/products/set/:productId([0-9]+)/visible", function(req, res) {
             };
         }
         res.json(response);
-    });*/
+    });
 });
 
-app.get("/orders/get/:limit([0-9]+)", function(req, res) {
+app.get("/orders/get/open", function(req, res) {
+    connection.query("SELECT orders.id, orders.date_created FROM orders WHERE orders.date_finished IS NULL ORDER BY orders.date_created", [], function(err, result) {
+        var response = [];
+        if(err) {
+            console.log(err);
+        } else {
+            var ordersId = [];
+            result.forEach(function(row) {
+                ordersId.push(row.id);
 
+                response.push({
+                    id: row.id,
+                    date_created: row.date_created,
+                    products: []
+                });
+            });
+
+            connection.query("SELECT orders_products.products_id, orders_products.orders_id FROM orders_products WHERE orders_products.orders_id IN (?)", [ordersId], function (err, result) {
+                if(err) {
+                    console.log(err);
+                } else {
+                    result.forEach(function(product) {
+                        response.forEach(function(order) {
+                            if(order.id == product.orders_id) {
+                                order.products.push({
+                                    id: product.products_id
+                                });
+                            }
+                        });
+                    });
+                    res.json(response);
+                }
+            });
+        }
+    });
+});
+
+app.get("/orders/get/finished", function(req, res) {
+    connection.query("SELECT orders.id, orders.date_created FROM orders WHERE orders.date_finished < NOW() ORDER BY orders.date_finished DESC LIMIT 10", [], function(err, result) {
+        var response = [];
+        if(err) {
+            console.log(1+err);
+        } else {
+            var ordersId = [];
+            result.forEach(function(row) {
+                ordersId.push(row.id);
+
+                response.push({
+                    id: row.id,
+                    date_created: row.date_created,
+                    date_finished: row.date_finished,
+                    products: []
+                });
+            });
+
+            connection.query("SELECT orders_products.products_id, orders_products.orders_id FROM orders_products WHERE orders_products.orders_id IN (?)", [ordersId], function (err, result) {
+                if(err) {
+                    console.log(2+err);
+                } else {
+                    result.forEach(function(product) {
+                        response.forEach(function(order) {
+                            if(order.id == product.orders_id) {
+                                order.products.push({
+                                    id: product.products_id
+                                });
+                            }
+                        });
+                    });
+                    res.json(response);
+                }
+            });
+        }
+    });
 });
 
 app.post("/orders/set/:orderId([0-9]+)", function(req, res) {
