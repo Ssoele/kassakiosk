@@ -1,7 +1,7 @@
 "use strict"
 var config  = require("../config.json");
 var mysql   = require("mysql");
-var express = require('express');
+var express = require("express");
 var app     = express();
 var server  = require("http").createServer(app);
 var io      = require("socket.io")(server);
@@ -80,30 +80,28 @@ app.get("/products/get", function(req, res) {
                     res.json(response);
                 }
             });
-
-
-
-            /*result.forEach(function(row) {
-
-                connection.query("SELECT products.id, products.name, products.price, products.visible, products.sort, products.categories_id_sub FROM products WHERE products.categories_id = ? ORDER BY products.sort", [row.id], function(err, result) {
-
-                });
-                console.log(category);
-            });*/
         }
     });
 });
 
 app.post("/products/set/:productId([0-9]+)/visible", function(req, res) {
-    connection.query("UPDATE products SET products.visible = ?", [req.param("productId")], function(err, result) {
+    console.log(req);
+    res.json(req);
+    /*connection.query("UPDATE products SET products.visible = ? WHERE products.id = ?", [req.body.visible, req.params.productId], function(err, result) {
         var response;
         if(err) {
-
+            console.log(err);
+            response = {
+                success: false,
+                error: err
+            };
         } else {
-
+            response = {
+                success: true
+            };
         }
         res.json(response);
-    });
+    });*/
 });
 
 app.get("/orders/get/:limit([0-9]+)", function(req, res) {
