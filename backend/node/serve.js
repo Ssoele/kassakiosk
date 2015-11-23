@@ -4,7 +4,7 @@ var mysql   = require("mysql");
 var express = require("express");
 var app     = express();
 var server  = require("http").createServer(app);
-var io      = require("socket.io")(server);
+//var io      = require("socket.io")(server);
 
 server.listen(80);
 
@@ -25,9 +25,9 @@ connection.connect();
 //      MySQL
 // ======END======
 
-io.on('connection', function(socket) {
+/*io.on('connection', function(socket) {
 
-});
+});*/
 
 app.all("*", function(req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
@@ -68,7 +68,7 @@ app.get("/products/get", function(req, res) {
                                     visible: product.visible,
                                     sort: product.sort,
                                     categories_id_sub: product.categories_id_sub,
-                                    image: "http://212.47.253.40/images/products/"+product.id+"/image.png"
+                                    image: "http://cdn.kassakiosk.be/images/products/"+product.id+"/image.png"
                                 });
                             }
                         });
