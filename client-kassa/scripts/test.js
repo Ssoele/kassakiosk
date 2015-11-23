@@ -23,6 +23,7 @@ function getProducts() {
         dataType: "json",
         success: function(data) {
             products = data[0].products;
+            console.log(products);
             buildProducts(data[0].products);
         },
         error: function(xhr, message, error) {
@@ -43,14 +44,16 @@ function buildProducts(data) {
     var html = new Array();
 
     data.forEach(function(product) {
-        var item =
-            '<div class="product" value="' + product.id + '">' +
-            '<img class="productImg" src="http://www.lutosa.com/files/produits/catalogue/assiettes/large/11-11-rb-copy-large.jpg">' +
-            '<div class="productName">' + product.name + '</div>' +
-            '<div class="productPrice">' + product.price + '</div>' +
-            '</div>';
+       if(product.visible) {
+           var item =
+               '<div class="product" value="' + product.id + '">' +
+               '<img class="productImg" src="http://www.lutosa.com/files/produits/catalogue/assiettes/large/11-11-rb-copy-large.jpg">' +
+               '<div class="productName">' + product.name + '</div>' +
+               '<div class="productPrice">' + product.price + '</div>' +
+               '</div>';
 
-        html.push(item);
+           html.push(item);
+       }
     })
 
     $("div#products").empty();
