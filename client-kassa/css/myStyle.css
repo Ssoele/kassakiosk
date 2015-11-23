@@ -32,7 +32,7 @@ body{
 
 #shoppingcart #shoppingTable {
     height: 90%;
-    overflow-y: scroll;
+    overflow-y: auto;
 }
 
 #shoppingcart #shoppingTable table {
@@ -42,6 +42,7 @@ body{
 #shoppingcart #shoppingTotal {
     margin-top: 0.5em;
     text-align: right;
+    border-top: 2px solid darkgray;
 }
 
 #products{
@@ -101,6 +102,7 @@ body{
     border: 1px solid darkgray;
     border-radius: 3px;
     text-align: center;
+    margin: 0.5em;
 }
 
 .product:active {

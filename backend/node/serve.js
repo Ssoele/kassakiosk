@@ -29,6 +29,13 @@ io.on('connection', function(socket) {
 
 });
 
+/* toevoeging van benjamin om cross domain toe te staan */
+/*app.all('/', function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "X-Requested-With");
+    next();
+});*/
+
 app.get("/products/get", function(req, res) {
     connection.query("SELECT categories.id, categories.name, categories.visible, categories.sort FROM categories ORDER BY categories.sort", [], function(err, result) {
         var response = [];
@@ -66,6 +73,10 @@ app.get("/products/get", function(req, res) {
                             }
                         });
                     });
+
+                    /* Deze header om cross origin te kunnen werken - Benjamin*/
+                    res.header("Access-Control-Allow-Origin", "*");
+
                     res.json(response);
                 }
             });
