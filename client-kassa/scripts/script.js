@@ -7,21 +7,36 @@
 
 var products;
 var shoppingcart = new Array();
+var rightHand = true;
 
 $(document).ready(function() {
     console.log("ready");
 
+    initiateKiosk();
+
+    $("#cancelOrder").click(confirm);
+    $("#checkout").click(checkout);
+    $("#flip").click(flipScreen);
+
+    $(".overlayConfirmButton#cancel").click(toggleOverlay);
+})
+
+function initiateKiosk() {
     getProducts();
     addShoppingcartHeaders();
+}
 
-    $("#cancel").click(cancelOrder);
-    $("#checkout").click(checkout);
-})
+function getTestData() {
+    products = testData[0].products;
+    buildProducts(products);
+}
 
 function getProducts() {
     products = null;
+    getTestData();
 
-    $.ajax({
+    //TODO: connectie met backend fixen
+   /* $.ajax({
         type: "GET",
         url: "http://localhost:80/products/get",
         dataType: "json",
@@ -32,16 +47,39 @@ function getProducts() {
         error: function(xhr, message, error) {
             console.log(message, error);
         }
-    })
+    })*/
 }
 
-/*
- <div class="product">
- <img class="productImg" src="http://www.lutosa.com/files/produits/catalogue/assiettes/large/11-11-rb-copy-large.jpg">
- <div class="productName">Kleine friet</div>
- <div class="productPrice">1.10</div>
- </div>
-*/
+function flipScreen(e) {
+    e.preventDefault();
+
+    var html;
+    var target = $("#top");
+    target.empty();
+
+    var shoppingcart =
+        '<div id="shoppingcart">'+
+        '<div id="shoppingTable">'+
+        '<table>'+
+        '</table>'+
+        '</div>'+
+        '<div id="shoppingTotal"></div>'+
+        '</div>';
+
+    var products =
+        '<div id="products">'+
+        '</div>';
+
+    if(!rightHand) {
+        html = shoppingcart + " " + products;
+    } else {
+        html = products + " " + shoppingcart;
+    }
+
+    rightHand = !rightHand;
+    target.html(html);
+    initiateKiosk();
+}
 
 function buildProducts(data) {
     var html = new Array();
@@ -50,8 +88,8 @@ function buildProducts(data) {
        if(product.visible) {
            var item =
                '<div class="product" value="' + product.id + '">' +
-               '<img class="productImg" src="http://www.lutosa.com/files/produits/catalogue/assiettes/large/11-11-rb-copy-large.jpg">' +
-               '<div class="productName">' + product.name + '</div>' +
+               '<img class="productImg" src="' + product.image + '">' +
+               '<div class="productName">' + checkProductName(product.name) + '</div>' +
                '<div class="productPrice">' + product.price + '</div>' +
                '</div>';
 
@@ -72,12 +110,13 @@ function addProductClickHandler() {
     })
 }
 
-/*<tr>
- <td class="shoppingNum">1</td>
- <td class="shoppingDescr">Een product</td>
- <td class="shoppingPrice">0</td>
- </tr>
-*/
+function checkProductName(name) {
+    if (name.length > 25) {
+        return name.substring(0,22) + "..";
+    } else {
+        return name;
+    }
+}
 
 function getProduct(id) {
     var product;
@@ -134,6 +173,7 @@ function clearShoppingcart() {
     $("#shoppingTable table").empty();
     addShoppingcartHeaders();
     $("#shoppingTotal").empty()
+    console.log(shoppingcart);
 }
 
 function scrollToBottom(element) {
@@ -141,9 +181,33 @@ function scrollToBottom(element) {
     element.scrollTop(height);
 }
 
+function confirm(e) {
+    e.preventDefault();
+
+    if($(this).text() == "Cancel order") {
+        if (shoppingcart.length > 0) {
+            toggleOverlay();
+            $(".overlayMessage").text("Are you sure you want to cancel your order?");
+            $(".overlayConfirmButton#confirm").click(cancelOrder);
+        }
+    }
+}
+
+function toggleOverlay() {
+    //TODO: toggle bug
+    var overlay = $(".overlay");
+
+    if(overlay.attr("hidden") == "hidden") {
+        overlay.removeAttr("hidden");
+    } else {
+        overlay.attr("hidden", "hidden");
+    }
+}
+
 function cancelOrder(e) {
     e.preventDefault();
 
+    toggleOverlay();
     clearShoppingcart();
     getProducts();
 }
