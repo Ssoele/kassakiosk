@@ -54,6 +54,10 @@ body{
     padding: 0.5em;
 }
 
+#accordion {
+    height: 100%;
+}
+
 #nav{
     text-align: right;
     padding-right: 1em;

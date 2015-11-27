@@ -5,9 +5,9 @@
 // magic backend line: res.header("Access-Control-Allow-Origin", "*")
 // source: http://stackoverflow.com/questions/11181546/how-to-enable-cross-origin-resource-sharing-cors-in-the-express-js-framework-o
 
-var products;
 var shoppingcart = new Array();
 var rightHand = true;
+var my = this;
 
 $(document).ready(function() {
     console.log("ready");
@@ -32,22 +32,22 @@ function getTestData() {
 }
 
 function getProducts() {
-    products = null;
-    getTestData();
+    products = new Array();
+    //getTestData();
 
-    //TODO: connectie met backend fixen
-   /* $.ajax({
-        type: "GET",
-        url: "http://localhost:80/products/get",
-        dataType: "json",
-        success: function(data) {
-            products = data[0].products;
-            buildProducts(data[0].products);
-        },
-        error: function(xhr, message, error) {
-            console.log(message, error);
-        }
-    })*/
+    $.get( "http://api.kassakiosk.be/products/get", function() {
+        alert( "success" );
+    })
+        .done(function(data) {
+            console.log(data);
+            buildProducts(data);
+        })
+        .fail(function() {
+            alert( "error" );
+        })
+        .always(function() {
+            alert( "finished" );
+        });
 }
 
 function flipScreen(e) {
@@ -84,21 +84,34 @@ function flipScreen(e) {
 function buildProducts(data) {
     var html = new Array();
 
-    data.forEach(function(product) {
-       if(product.visible) {
-           var item =
-               '<div class="product" value="' + product.id + '">' +
-               '<img class="productImg" src="' + product.image + '">' +
-               '<div class="productName">' + checkProductName(product.name) + '</div>' +
-               '<div class="productPrice">' + product.price + '</div>' +
+    data.forEach(function(category) {
+          var item =
+               '<h3>' + category.name + ' </h3>' +
+               '<div>';
+
+        category.products.forEach(function(product) {
+            products.push(product);
+
+            item +=
+            '<div class="product" value="' + product.id + '">' +
+            '<img class="productImg" src="' + product.image + '">' +
+            '<div class="productName">' + product.name + '</div>' +
+            '<div class="productPrice">' + product.price + '</div>';
+        });
+
+              item +=
+               '</div>' +
                '</div>';
 
            html.push(item);
-       }
-    })
+    });
 
-    $("div#products").empty();
-    $("div#products").append(html);
+    $("div#products #accordion").empty();
+    $("div#products #accordion").append(html);
+
+    $("#accordion").accordion({
+        collapsible: true
+    });
 
     addProductClickHandler();
 }
