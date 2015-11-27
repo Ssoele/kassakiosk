@@ -193,7 +193,7 @@ function clearShoppingcart() {
     shoppingcart = new Array();
     $("#shoppingTable table").empty();
     addShoppingcartHeaders();
-    $("#shoppingTotal").empty()
+    $("#shoppingTotal").empty();
     console.log(shoppingcart);
 }
 
