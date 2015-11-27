@@ -87,7 +87,7 @@ function buildProducts(data) {
     data.forEach(function(category) {
           var item =
                '<h3>' + category.name + ' </h3>' +
-               '<div>';
+               '<div class="category">';
 
         category.products.forEach(function(product) {
             products.push(product);
@@ -96,12 +96,11 @@ function buildProducts(data) {
             '<div class="product" value="' + product.id + '">' +
             '<img class="productImg" src="' + product.image + '">' +
             '<div class="productName">' + product.name + '</div>' +
-            '<div class="productPrice">' + product.price + '</div>';
+            '<div class="productPrice">' + product.price + '</div>' +
+            '</div>';
         });
 
-              item +=
-               '</div>' +
-               '</div>';
+          item += '</div>';
 
            html.push(item);
     });
@@ -110,8 +109,11 @@ function buildProducts(data) {
     $("div#products #accordion").append(html);
 
     $("#accordion").accordion({
-        collapsible: true
+        collapsible: true,
+        active: false
     });
+
+    $(".category").height("auto");
 
     addProductClickHandler();
 }
