@@ -91,24 +91,26 @@ function buildProducts(data) {
     }
 
     data.forEach(function(category) {
-        var item =
-            '<h3>' + category.name + ' </h3>' +
-            '<div class="category">';
+        if (category.visible == 1) {
+            var item =
+                '<h3>' + category.name + ' </h3>' +
+                '<div class="category">';
 
-        category.products.forEach(function(product) {
-            products.push(product);
+            category.products.forEach(function (product) {
+                products.push(product);
 
-            item +=
-                '<div class="product" value="' + product.id + '">' +
-                '<img class="productImg" src="' + product.image + '">' +
-                '<div class="productName">' + product.name + '</div>' +
-                '<div class="productPrice">' + product.price + '</div>' +
-                '</div>';
-        });
+                item +=
+                    '<div class="product" value="' + product.id + '">' +
+                    '<img class="productImg" src="' + product.image + '">' +
+                    '<div class="productName">' + product.name + '</div>' +
+                    '<div class="productPrice">' + product.price + '</div>' +
+                    '</div>';
+            });
 
-        item += '</div>';
+            item += '</div>';
 
-        html.push(item);
+            html.push(item);
+        }
     });
 
     $("div#products #accordion").empty();
@@ -207,30 +209,29 @@ function confirm(e) {
 
     if($(this).text() == "Cancel order") {
         if (shoppingcart.length > 0) {
-            toggleOverlay();
+            //toggleOverlay();
+            showOverlay();
             $(".overlayMessage").text("Are you sure you want to cancel your order?");
             $(".overlayConfirmButton#confirm").click(cancelOrder);
         }
     }
 }
 
-function toggleOverlay() {
-    //TODO: toggle bug
-    var overlay = $(".overlay");
+function showOverlay() {
+    $(".overlay").css("display", "block");
+    $("#accordion").hide();
+}
 
-    if(overlay.css("display") == "none") {
-        overlay.css("display", "block");
-        $("#accordion").hide();
-    } else {
-        overlay.css("display", "none");
-        $("#accordion").show();
-    }
+function hideOverlay() {
+    $(".overlay").css("display", "none");
+    $("#accordion").show();
 }
 
 function cancelOrder(e) {
     e.preventDefault();
 
-    toggleOverlay();
+    //toggleOverlay();
+    hideOverlay();
     clearShoppingcart();
     getProducts();
 }
