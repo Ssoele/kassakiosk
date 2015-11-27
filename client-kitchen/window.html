@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Kassa kiosk</title>
+
+    <link href="css/myStyle.css" rel="stylesheet">
+
+    <script src="scripts/lib/jquery-2.1.4.min.js"></script>
+    <script src="scripts/lib/jquery-ui.min.js"></script>
+
+    <script src="scripts/script.js"></script>
+    <script src="scripts/testInput.js"></script>
+</head>
+<body>
+<div class="overlay" hidden="hidden">
+    <div class="overlayButtons">
+        <div class="overlayMessage">Are you sure?</div>
+        <div class="overlayConfirmButton" id="confirm"></div>
+        <div class="overlayConfirmButton" id="cancel"></div>
+    </div>
+</div>
+
+<div class="page" id="main">
+        <div class="header">
+            <h1>Kassa kiosk</h1>
+        </div>
+
+        <div id="top">
+           <div id="shoppingcart">
+                <div id="shoppingTable">
+                    <table>
+                    </table>
+                </div>
+                <div id="shoppingTotal"></div>
+            </div>
+
+            <div id="products">
+            </div>
+        </div>
+
+    <div id="nav">
+        <ul>
+            <li><a href="#" id="cancelOrder">Cancel order</a></li>
+            <li><a href="#" id="checkout">Checkout</a></li>
+            <li><a href="#" id="flip">Flip</a></li>
+        </ul>
+    </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,192 @@
+html {
+    height: 100%;
+}
+
+body{
+    margin:0;
+    font-family: "Courier";
+    background-color: #D8D8D8;
+    height: 100%;
+}
+
+#top{
+    display:block;
+    vertical-align: top;
+    padding: 5px;
+    height: 60%;
+    margin-left: 1em;
+    width: 90%;
+    margin: auto;
+    margin-top: 1em;
+}
+
+#shoppingcart{
+    border: ridge 2px darkgray;
+    border-radius: 8px;
+    width:30%;
+    height:100%;
+    display:inline-block;
+    vertical-align: top;
+    padding: 0.5em;
+}
+
+#shoppingcart #shoppingTable {
+    height: 90%;
+    overflow-y: auto;
+}
+
+#shoppingcart #shoppingTable table {
+    width: 100%;
+}
+
+#shoppingcart #shoppingTotal {
+    margin-top: 0.5em;
+    text-align: right;
+    border-top: 2px solid darkgray;
+}
+
+#products{
+    border: ridge 2px darkgray;
+    border-radius: 8px;
+    display:inline-block;
+    width: 65%;
+    height: 100%;
+    padding: 0.5em;
+}
+
+#nav{
+    text-align: right;
+    padding-right: 1em;
+    padding-top: 1em;
+    width: 90%;
+    margin: auto;
+}
+
+#nav ul li{
+    display:inline-block;
+    padding: 0.5em;
+    background-color: #931100;
+    border-radius: 8px;
+    border: 1px solid black;
+}
+
+#nav ul li:active{
+    background-color: rgba(147, 17, 0, 0.67);
+}
+
+#nav ul li a{
+    color:white;
+    text-decoration: none;
+}
+
+/*
+    Classes
+*/
+
+.page {
+    height: 100%;
+}
+
+.overlay {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.51);
+    color: white;
+    text-align: center;
+}
+
+.overlayButtons {
+    height: 50%;
+    width: 50%;
+    border-radius: 3px;
+    margin: auto;
+    margin-top: 10%;
+}
+
+.overlayMessage {
+    display: block;
+    margin-top: 2em;
+    margin-bottom: 2em;
+}
+
+.overlayConfirmButton {
+    display: inline-block;
+    height: 10em;
+    width: 10em;
+    border: 1px solid lightgray;
+    border-radius: 10px;
+    background-size: cover;
+}
+
+.overlayConfirmButton:active {
+    background-color: rgba(255, 255, 255, 0.41);
+}
+
+.header{
+    height:2em;
+    border-radius: 0 0 8px 8px;
+    background-color: #B71500;
+    padding:1em 0 1em 0;
+}
+.header h1{
+    color:white;
+    margin-top:0px;
+    text-align: center;
+}
+
+.product {
+    vertical-align: top;
+    display: inline-block;
+    height: 10em;
+    width: 10em;
+    border: 1px solid darkgray;
+    border-radius: 3px;
+    text-align: center;
+    margin: 0.5em;
+}
+
+.product:active {
+    background-color: #e3e3e3;
+}
+
+.productImg {
+    width: 70%;
+    height: 70%;
+}
+
+.productName {
+    height: 29%;
+}
+
+.productPrice {
+    height: 0;
+    display: none;
+    font-size: smaller;
+}
+
+.overlayConfirmButton#confirm {
+    background-image: url(http://vignette2.wikia.nocookie.net/halo/images/9/9c/Confirm_icon.png/revision/latest?cb=20101202172307&path-prefix=de);
+}
+
+.overlayConfirmButton#cancel {
+    background-image: url(https://cdn4.iconfinder.com/data/icons/toolbar-std-pack/512/delete-512.png);
+}
+
+#shoppingcart #shoppingTable table .shoppingNum {
+    width: 20%;
+}
+
+#shoppingcart #shoppingTable table .shoppingDescr {
+    width: 60%;
+}
+
+#shoppingcart #shoppingTable table .shoppingPrice {
+    width: 20%;
+    text-align: right;
+    padding-right: 0.2em;
+}
+
+#shoppingcart #shoppingTable table th.shoppingPrice {
+    text-align: center;
+}
