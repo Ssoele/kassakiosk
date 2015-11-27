@@ -54,7 +54,7 @@ body{
     padding: 0.5em;
 }
 
-#nav{
+#nav, .navButtons{
     text-align: right;
     padding-right: 1em;
     padding-top: 1em;
@@ -85,6 +85,10 @@ body{
 
 .page {
     height: 100%;
+}
+.managePage, .undoPage
+{
+    height: 0%;
 }
 
 .overlay {
@@ -189,4 +193,29 @@ body{
 
 #shoppingcart #shoppingTable table th.shoppingPrice {
     text-align: center;
+}
+
+
+.navButtons a{
+    display:inline-block;
+    padding: 0.5em;
+
+    border-radius: 8px;
+    border: 1px solid black;
+
+    color:white;
+    text-decoration: none;
+
+}
+
+#undo {
+
+    background-color: #931100;
+
+}
+#manage{
+
+    background-color: #1c94c4;
+
+
 }
