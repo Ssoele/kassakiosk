@@ -68,6 +68,8 @@ body{
 }
 
 #nav ul li{
+    color: white;
+    cursor: pointer;
     display:inline-block;
     padding: 0.5em;
     background-color: #931100;
@@ -77,11 +79,6 @@ body{
 
 #nav ul li:active{
     background-color: rgba(147, 17, 0, 0.67);
-}
-
-#nav ul li a{
-    color:white;
-    text-decoration: none;
 }
 
 /*
