@@ -68,6 +68,7 @@ function flipScreen(e) {
 
     var products =
         '<div id="products">'+
+            '<div id="accordion"></div>'+
         '</div>';
 
     if(!rightHand) {
@@ -83,6 +84,11 @@ function flipScreen(e) {
 
 function buildProducts(data) {
     var html = new Array();
+    var accordion = $("#accordion")
+
+    if (accordion.accordion("instance") != null) {
+        accordion.accordion("destroy");
+    }
 
     data.forEach(function(category) {
         var item =
@@ -212,10 +218,12 @@ function toggleOverlay() {
     //TODO: toggle bug
     var overlay = $(".overlay");
 
-    if(overlay.attr("hidden") == "hidden") {
-        overlay.removeAttr("hidden");
+    if(overlay.css("display") == "none") {
+        overlay.css("display", "block");
+        $("#accordion").hide();
     } else {
-        overlay.attr("hidden", "hidden");
+        overlay.css("display", "none");
+        $("#accordion").show();
     }
 }
 
