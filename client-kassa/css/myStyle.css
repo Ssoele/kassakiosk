@@ -4,7 +4,7 @@ html {
 
 body{
     margin:0;
-    font-family: "Helvetica";
+    font-family: "Helvetica, Arial";
     background-color: #D8D8D8;
     height: 100%;
 }
@@ -71,7 +71,8 @@ body{
     color: white;
     cursor: pointer;
     display:inline-block;
-    padding: 0.5em;
+    padding: 1em;
+    margin-left:0.8em;
     background-color: #931100;
     border-radius: 8px;
     border: 1px solid black;
@@ -126,7 +127,6 @@ body{
 }
 
 .header{
-    height:2em;
     background-color: #B71500;
     padding:1em 0 1em 0;
 }
@@ -194,4 +194,8 @@ body{
 
 #shoppingcart #shoppingTable table th.shoppingPrice {
     text-align: center;
+}
+
+.category .ui-accordion-content .ui-helper-reset .ui-widget-content .ui-corner-bottom .ui-accordion-content-active{
+    padding:0px;
 }
