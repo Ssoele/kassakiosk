@@ -140,6 +140,10 @@ body{
     text-align: center;
 }
 
+.catergory {
+    text-align: center;
+}
+
 .product {
     vertical-align: top;
     display: inline-block;

@@ -91,10 +91,11 @@ function buildProducts(data) {
 
         category.products.forEach(function(product) {
             products.push(product);
+           // '<img class="productImg" src="' + product.image + '">' +
 
             item +=
             '<div class="product" value="' + product.id + '">' +
-            '<img class="productImg" src="' + product.image + '">' +
+            '<img class="productImg" src="http://uxrepo.com/static/icon-sets/maki/svg/fast-food.svg">' +
             '<div class="productName">' + product.name + '</div>' +
             '<div class="productPrice">' + product.price + '</div>' +
             '</div>';
