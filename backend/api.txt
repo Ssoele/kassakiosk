@@ -20,6 +20,13 @@ RESPONSE
     }
 ]
 
+REQUEST POST    /*
+POST DATA       {
+                    uid: {string kiosk_uid},
+                    secret: {string kiosk_secret}
+                }
+
+
 REQUEST POST    /products/set/[product_id]/visible
 POST DATA       {
                     visible: {bool product_visible}

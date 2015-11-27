@@ -40,6 +40,29 @@ app.all("*", function(req, res, next) {
     next();
 });
 
+app.post("*", function(req, res, next) {
+    connection.query("SELECT kiosks.secret FROM kiosks WHERE kiosks.uid = ? LIMIT 1", [req.body.uid], function(err, result) {
+        var response;
+        if(err) {
+            console.log(err);
+            response = {
+                error: "Authorisation failed!"
+            }
+            res.json(response);
+        } else {
+            if(result[0].secret == req.body.secret) {
+                next();
+            } else {
+                response = {
+                    error: "Authorisation failed!1"
+                }
+                res.json(response);
+            }
+        }
+    });
+
+});
+
 app.get("/products/get", function(req, res) {
     connection.query("SELECT categories.id, categories.name, categories.visible, categories.sort FROM categories ORDER BY categories.sort", [], function(err, result) {
         var response = [];
@@ -150,7 +173,7 @@ app.get("/orders/get/finished", function(req, res) {
     connection.query("SELECT orders.id, orders.date_created FROM orders WHERE orders.date_finished < NOW() ORDER BY orders.date_finished DESC LIMIT 10", [], function(err, result) {
         var response = [];
         if(err) {
-            console.log(1+err);
+            console.log(err);
         } else {
             var ordersId = [];
             result.forEach(function(row) {
@@ -166,7 +189,7 @@ app.get("/orders/get/finished", function(req, res) {
 
             connection.query("SELECT orders_products.products_id, orders_products.orders_id FROM orders_products WHERE orders_products.orders_id IN (?)", [ordersId], function (err, result) {
                 if(err) {
-                    console.log(2+err);
+                    console.log(err);
                 } else {
                     result.forEach(function(product) {
                         response.forEach(function(order) {
@@ -184,16 +207,98 @@ app.get("/orders/get/finished", function(req, res) {
     });
 });
 
-app.post("/orders/set/:orderId([0-9]+)", function(req, res) {
-
+app.post("/orders/set/:orderId([0-9]+)/done", function(req, res) {
+    var done;
+    if(req.body.done) {
+        connection.query("UPDATE orders SET orders.date.finished = NOW() WHERE products.id = ?", [req.params.orderId], function(err, result) {
+            var response;
+            if(err) {
+                console.log(err);
+                response = {
+                    success: false,
+                    error: err
+                };
+            } else {
+                response = {
+                    success: true
+                };
+            }
+            res.json(response);
+        });
+    } else {
+        connection.query("UPDATE orders SET orders.date.finished = NULL WHERE products.id = ?", [req.params.orderId], function(err, result) {
+            var response;
+            if(err) {
+                console.log(err);
+                response = {
+                    success: false,
+                    error: err
+                };
+            } else {
+                response = {
+                    success: true
+                };
+            }
+            res.json(response);
+        });
+    }
 });
 
 app.post("/orders/create", function(req, res) {
-    connection.query("", [], function(err, result) {
+    var kioskId = 1;
+    var random = makeRandomString();
+    connection.query("INSERT INTO orders SET orders.date_created = NOW(), orders.kiosks_id = ?, orders.random = ?", [kioskId, random], function(err, result) {
+        var response;
         if (err) {
             console.log(err);
+            response = {
+                success: false,
+                error: err
+            };
+            res.json(response);
         } else {
+            connection.query("SELECT orders.id FROM orders WHERE random = ?", [random], function(err, result) {
+                if (err) {
+                    console.log(err);
+                    response = {
+                        success: false,
+                        error: err
+                    };
+                    res.json(response);
+                } else {
+                    var id = result[0].id;
+                    var products = JSON.parse(req.body.products);
 
+                    products.products.forEach(function(product) {
+                        connection.query("SELECT products.price FROM products WHERE products.id = ?", [product.id], function(err, result) {
+                            if (err) {
+                                console.log(err);
+                                response = {
+                                    success: false,
+                                    error: err
+                                };
+                                res.json(response);
+                            } else {
+                                var price = result[0].price;
+                                connection.query("INSERT INTO orders_products SET orders_products.orders_id = ?, orders_products.products_id = ?, orders_products.price = ?", [id, product.id, price], function(err, result) {
+                                    if (err) {
+                                        console.log(err);
+                                        response = {
+                                            success: false,
+                                            error: err
+                                        };
+                                    }
+                                });
+                            }
+                        });
+                    });
+                    response = {
+                        success: true
+                    };
+                    res.json(response);
+
+                }
+            });
         }
     });
 });
@@ -206,6 +311,13 @@ app.use(function (req, res) {
     res.status(404).end("404 Page is choud!");
 });
 
-function getProductsByCategory(categoryId) {
+function makeRandomString() {
+    var text = "";
+    var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 
+    for( var i=0; i < 16; i++ ) {
+        text += possible.charAt(Math.floor(Math.random() * possible.length));
+    }
+
+    return text;
 }
