@@ -15,7 +15,7 @@ $(document).ready(function() {
     initiateKiosk();
 
     $("#manage").click(showManagePage);
-    $("#checkout").click(checkout);
+    $("#showUndo").click(showUndoPage);
     $("#flip").click(flipScreen);
     $(".overlayConfirmButton#cancel").click(toggleOverlay);
     startTime();
@@ -38,7 +38,7 @@ function checkTime(i) {
 }
 function initiateKiosk() {
     getProducts();
-    addShoppingcartHeaders();
+
 }
 
 function getTestData() {
@@ -163,11 +163,22 @@ function showManagePage(e)
 {
     var managePage = $(".managePage");
     var kitchenPage = $(".kitchenPage");
+
     if(managePage.attr("hidden")== "hidden")
     {
         managePage.removeAttr("hidden");
         kitchenPage.attr("hidden", "hidden");
     }
+}
+function showUndoPage(e)
+{     var undoPage = $(".undoPage");
+      var kitchenPage = $(".kitchenPage");
+    if(undoPage.attr("hidden")== "hidden")
+    {
+        undoPage.removeAttr("hidden");
+        kitchenPage.attr("hidden", "hidden");
+    }
+
 }
 function toggleOverlay() {
     //TODO: toggle bug

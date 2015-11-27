@@ -18,7 +18,7 @@ $(document).ready(function() {
     $("#checkout").click(checkout);
     $("#flip").click(flipScreen);
 
-    $(".overlayConfirmButton#cancel").click(hideOverlay());
+    $(".overlayConfirmButton#cancel").click(hideOverlay);
 })
 
 function initiateKiosk() {
@@ -225,6 +225,7 @@ function showOverlay() {
 function hideOverlay() {
     $(".overlay").css("display", "none");
     $("#accordion").show();
+    
 }
 
 function cancelOrder(e) {
