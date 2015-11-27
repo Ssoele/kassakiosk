@@ -14,10 +14,9 @@ $(document).ready(function() {
 
     initiateKiosk();
 
-    $("#cancelOrder").click(confirm);
+    $("#manage").click(showManagePage);
     $("#checkout").click(checkout);
     $("#flip").click(flipScreen);
-
     $(".overlayConfirmButton#cancel").click(toggleOverlay);
 })
 
@@ -193,6 +192,16 @@ function confirm(e) {
     }
 }
 
+function showManagePage(e)
+{
+    var managePage = $(".managePage");
+    var kitchenPage = $(".kitchenPage");
+    if(managePage.attr("hidden")== "hidden")
+    {
+        managePage.removeAttr("hidden");
+        kitchenPage.attr("hidden", "hidden");
+    }
+}
 function toggleOverlay() {
     //TODO: toggle bug
     var overlay = $(".overlay");
@@ -202,6 +211,10 @@ function toggleOverlay() {
     } else {
         overlay.attr("hidden", "hidden");
     }
+}
+
+function togglePage(){
+
 }
 
 function cancelOrder(e) {
