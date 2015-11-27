@@ -145,56 +145,7 @@ function getProduct(id) {
     return product;
 }
 
-function addShoppingcartHeaders() {
-    var html =
-        '<tr>'+
-        '<th class="shoppingtNum">#</th>'+
-        '<th class="shoppingDescr">Description</th>'+
-        '<th class="shoppingPrice">Price</th>'+
-        '</tr>';
 
-    $("#shoppingTable table").append(html);
-}
-
-function addProductToShoppingCart(product) {
-    shoppingcart.push(product);
-
-    var amount = 1; //hardcorded voor de mo mo
-    var html =
-        '<tr>' +
-        '<td class="shoppingNum">' + amount + '</td>' +
-        '<td class="shoppingDescr">' + product.name + '</td>' +
-        '<td class="shoppingPrice">' + product.price + '</td>' +
-        '</tr>';
-
-    $("#shoppingTable table").append(html);
-    updateShoppingcart();
-}
-
-function updateShoppingcart() {
-    var total = 0;
-
-    shoppingcart.forEach(function(p) {
-        total += parseInt(p.price);
-    })
-
-    $("#shoppingTotal").text(total);
-
-   scrollToBottom($("#shoppingTable"));
-}
-
-function clearShoppingcart() {
-    shoppingcart = new Array();
-    $("#shoppingTable table").empty();
-    addShoppingcartHeaders();
-    $("#shoppingTotal").empty()
-    console.log(shoppingcart);
-}
-
-function scrollToBottom(element) {
-    var height = element.get(0).scrollHeight;
-    element.scrollTop(height);
-}
 
 function confirm(e) {
     e.preventDefault();
