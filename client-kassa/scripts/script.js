@@ -36,7 +36,7 @@ function getProducts() {
     //getTestData();
 
     $.get( "http://api.kassakiosk.be/products/get", function() {
-        alert( "success" );
+        console.log( "success" );
     })
         .done(function(data) {
             console.log(data);
@@ -46,7 +46,7 @@ function getProducts() {
             alert( "error" );
         })
         .always(function() {
-            alert( "finished" );
+            console.log( "finished" );
         });
 }
 
@@ -85,25 +85,24 @@ function buildProducts(data) {
     var html = new Array();
 
     data.forEach(function(category) {
-          var item =
-               '<h3>' + category.name + ' </h3>' +
-               '<div class="category">';
+        var item =
+            '<h3>' + category.name + ' </h3>' +
+            '<div class="category">';
 
         category.products.forEach(function(product) {
             products.push(product);
-           // '<img class="productImg" src="' + product.image + '">' +
 
             item +=
-            '<div class="product" value="' + product.id + '">' +
-            '<img class="productImg" src="http://uxrepo.com/static/icon-sets/maki/svg/fast-food.svg">' +
-            '<div class="productName">' + product.name + '</div>' +
-            '<div class="productPrice">' + product.price + '</div>' +
-            '</div>';
+                '<div class="product" value="' + product.id + '">' +
+                '<img class="productImg" src="' + product.image + '">' +
+                '<div class="productName">' + product.name + '</div>' +
+                '<div class="productPrice">' + product.price + '</div>' +
+                '</div>';
         });
 
-          item += '</div>';
+        item += '</div>';
 
-           html.push(item);
+        html.push(item);
     });
 
     $("div#products #accordion").empty();
@@ -181,7 +180,7 @@ function updateShoppingcart() {
 
     $("#shoppingTotal").text(total);
 
-   scrollToBottom($("#shoppingTable"));
+    scrollToBottom($("#shoppingTable"));
 }
 
 function clearShoppingcart() {
