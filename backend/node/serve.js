@@ -54,13 +54,19 @@ app.post("*", function(req, res, next) {
                 next();
             } else {
                 response = {
-                    error: "Authorisation failed!1"
+                    error: "Authorisation failed!"
                 }
                 res.json(response);
             }
         }
     });
 
+});
+
+app.post("/check", function(req, res) {
+    res.json({
+        success: true
+    });
 });
 
 app.get("/products/get", function(req, res) {
@@ -96,7 +102,7 @@ app.get("/products/get", function(req, res) {
                                     visible: product.visible,
                                     sort: product.sort,
                                     categories_id_sub: product.categories_id_sub,
-                                    image: "http://cdn.kassakiosk.be/images/products/"+product.id+"/image.png"
+                                    image: "https://cdn.kassakiosk.be/images/products/"+product.id+".png"
                                 });
                             }
                         });
@@ -280,7 +286,7 @@ app.post("/orders/create", function(req, res) {
                                 res.json(response);
                             } else {
                                 var price = result[0].price;
-                                connection.query("INSERT INTO orders_products SET orders_products.orders_id = ?, orders_products.products_id = ?, orders_products.price = ?", [id, product.id, price], function(err, result) {
+                                connection.query("INSERT INTO orders_products SET orders_products.orders_id = ?, orders_products.products_id = ?, orders_products.price = ?, orders_products.amount = ?, orders_products.products_id_sub = ?", [id, product.id, price, product.amount, product.sub], function(err, result) {
                                     if (err) {
                                         console.log(err);
                                         response = {
@@ -293,7 +299,8 @@ app.post("/orders/create", function(req, res) {
                         });
                     });
                     response = {
-                        success: true
+                        success: true,
+                        order: id
                     };
                     res.json(response);
 
@@ -301,10 +308,6 @@ app.post("/orders/create", function(req, res) {
             });
         }
     });
-});
-
-app.get("/images/products/:productId([0-9]+)/image.png", function(req, res) {
-    res.status(404).end("Images not available yet!");
 });
 
 app.use(function (req, res) {
