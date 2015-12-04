@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" type="image/png" href="favicon.png">
+
+    <title>Kitchen</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.css" rel="stylesheet">
+    <link href="css/jquery-ui.min.css" rel="stylesheet">
+    <link href="css/jquery-ui.structure.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="css/kitchen.css" rel="stylesheet">
+
+    <script src="js/jquery.min.js" type="text/javascript"></script>
+    <script src="js/jquery-ui.min.js" type="text/javascript"></script>
+    <script src="js/bootstrap.min.js" type="text/javascript"></script>
+    <script src="js/kitchen.app.js" type="text/javascript"></script>
+    <link href='css/roboto.font.css' rel='stylesheet' type='text/css'>
+</head>
+<body>
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <img alt="Brand" src="images/logo.png">
+        </div>
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <li class="dropdown page-menu-stations">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Current Orders <span class="caret"></span></a>
+                    <ul class="dropdown-menu stations">
+                        <li class="page-link page-menu-stations-checkout"><a href="#stations/checkout">Checkout</a></li>
+                        <li class="page-link page-menu-stations-all"><a href="#stations/all">All stations</a></li>
+                        <li role="separator" class="divider"></li>
+                    </ul>
+                </li>
+                <li class="page-link page-menu-finished-orders"><a href="#finished-orders">Finished Orders</a></li>
+                <li class="page-link page-menu-products"><a href="#products">Products</a></li>
+            </ul>
+        </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+</nav>
+<div class="container-fluid" id="main">
+    <div class="row page" id="page-products">
+        <div class="col-md-12" id="categories-parent">
+            <div class="row" id="categories-blurable">
+                <div class="col-md-3" id="categories"></div>
+                <div class="col-md-8" id="products"></div>
+                <div class="col-md-1 scroll" id="scroll-products">
+                    <div class="scroll-up"><span class="glyphicon glyphicon-chevron-up" aria-hidden="true"></span></div>
+                    <div class="scroll-bar"><span class="glyphicon glyphicon-menu-hamburger" aria-hidden="true"></span></div>
+                    <div class="scroll-down"><span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row page orders" id="page-finished-orders"></div>
+    <div class="row page orders" id="page-stations"></div>
+</div>
+<div class="container-fluid" id="main-overlay">
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <div class="form-group">
+                <label for="setup-api">API Server</label>
+                <input type="text" class="form-control" id="setup-api" placeholder="https://api.kassakiosk.be/" value="https://api.kassakiosk.be/">
+            </div>
+            <div class="form-group">
+                <label for="setup-uid">UID</label>
+                <input type="text" class="form-control" id="setup-uid" placeholder="UID">
+            </div>
+            <div class="form-group">
+                <label for="setup-secret">Secret</label>
+                <input type="text" class="form-control" id="setup-secret" placeholder="Secret">
+            </div>
+            <button type="submit" class="btn btn-default setup-submit">Login</button>
+        </div>
+    </div>
+</div>
+</body>
+</html>

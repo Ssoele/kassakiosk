@@ -1,5 +1,6 @@
 {
-  "host": "localhost",
+  "host": "api.kassakiosk.be",
   "user": "root",
-  "pass": "kassakiosk"
+  "pass": "4jHIclnwFF8JUjX@#v&i",
+  "port": 3000
 }
